@@ -1,6 +1,5 @@
 export const LOAD_All_DECKS = 'LOAD_All_DECKS';
-export const CREATE_DECK = 'CREATE_DECK';
-export const REMOVE_DECK = 'REMOVEll_DECK';
+export const ADD_DECK = 'ADD_DECK';
 
 export function loadAllDecks(allDecks) {
   return {
@@ -8,15 +7,9 @@ export function loadAllDecks(allDecks) {
     allDecks,
   }
 }
-export function createDeck(deck) {
+export function addDeck(deck) {
   return {
-    type: CREATE_DECK,
-    deck,
-  }
-}
-export function removeDeck(deck) {
-  return {
-    type: REMOVE_DECK,
+    type: ADD_DECK,
     deck,
   }
 }

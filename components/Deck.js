@@ -2,21 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { white, gray, black } from '../utils/colors'
 
-class AddDeck extends React.Component{
+class Deck extends React.Component{
   render(){
+    console.log(this.props.navigation);
     return(
       <View style={styles.container}>
-        <Text>What is the title of your new deck?</Text>
-        <Text>Add New Deck</Text>
-        <TouchableOpacity onPress={() => alert('Hello')}>
-          <Text>SUBMIT</Text>
+        <Text>Deck View - {this.props.navigation.state.params.deckTitle}</Text>
+        <TouchableOpacity style={styles.addBtn}>
+          <Text>Add Card</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.startQuizBtn}>
+          <Text>Start Quiz</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-export default AddDeck;
+export default Deck;
 
 const styles = StyleSheet.create({
   container: {
@@ -25,4 +28,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  addBtn:{
+    
+  },
+  startQuizBtn:{
+
+  }
+
 });
