@@ -21,19 +21,20 @@ class AllDecks extends React.Component{
   }
 
   //renders the list of decks
-  renderList = ({ item }, index) => {
+  renderList = ({ item }) => {
+    let cardTitle = item.title;
+    let cardCount = item.questions.length;
+    // console.log(cardTitle, cardCount);
     return(
-      <TouchableOpacity key={index} style={styles.deckListStyle}
-                        onPress={() => this.props.navigation.navigate('Deck', {deckTitle: item.title})}>
-        <Text style={styles.deckListText} key={item.title}>{item.title} Deck - {item.questions.length} Cards</Text>
+      <TouchableOpacity style={styles.deckListStyle}
+                        onPress={() => this.props.navigation.navigate('Deck', {deckTitle: cardTitle})}>
+        <Text style={styles.deckListText}>{cardTitle} Deck - {cardCount} Cards</Text>
       </TouchableOpacity>
     )
   };
 
   // returns the key for the FlatList
-  _keyExtractor = (item, index) => {
-    return item.id;
-  }
+  _keyExtractor = (item, index) => index;
 
   render(){
     const {decks} = this.props;
@@ -44,7 +45,7 @@ class AllDecks extends React.Component{
         {
           decks !== [] ?
           <FlatList
-            data={decks} renderItem = {this.renderList} keyExtractor={()=> this._keyExtractor}
+            data={decks} renderItem = {this.renderList} keyExtractor={this._keyExtractor}
           />
           :
           <Text >No Decks yets</Text>

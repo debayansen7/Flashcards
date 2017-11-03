@@ -1,41 +1,84 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import { addCard } from '../actions/index';
 
-import Buttons from './Buttons'
-import { addDeck } from '../actions/index';
 import { white, red, gray, black } from '../utils/colors';
 
 class NewQuestionView extends React.Component{
+  constructor(props){
+  	super(props);
+  	this.state = {
+      question: '',
+      answer: '',
+      title: ''
+    };
+    this.submit = this.submit.bind(this);
+  }
 
-  state = {
-    question: '',
-    answer: ''
+  submit(){
+    console.log("Submit triggered");
+    console.log(this.state.question);
+    console.log(this.state.answer);
+
+    if(this.state.question !== '' && this.state.answer!== '' ){
+      let cardData = {
+        question : this.state.question,
+        answer : this.state.answer
+      }
+      this.setState({title:this.props.selectedDeck.title})
+      let deckTitle = this.state.title;
+
+      //save to redux
+      this.props.addCard(deckTitle, cardData);
+
+      //Navigate to deck details page
+      this.props.navigation.navigate('Deck', {deckTitle: deckTitle});
+
+    }else{
+      alert("Cannot have blank fields!!")
+    }
+
+    //reset state
+    this.setState({question: '', answer: ''})
   }
 
   render(){
+    console.log(this.props.selectedDeck.title);
     return(
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.text}>Your question:</Text>
         <TextInput
           style={styles.textInput}
+          value={this.state.question}
           placeholder="Add your question"
-          onChangeText={(text) => this.setState({question})}
+          onChangeText={(question) => this.setState({question})}
           blurOnSubmit/>
 
-          <Text style={styles.text}>Your answer:</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Add your answer"
-            onChangeText={(text) => this.setState({answer})}
-            blurOnSubmit/>
-        <Buttons />
-      </View>
+        <Text style={styles.text}>Correct answer:</Text>
+        <TextInput
+          style={styles.textInput}
+          value={this.state.answer}
+          placeholder="Add your answer"
+          onChangeText={(answer) => this.setState({answer})}
+          blurOnSubmit/>
+
+        <TouchableOpacity onPress={this.submit} style={styles.submit}>
+          <Text style={styles.submitText}>SUBMIT</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     );
   }
 }
-
-export default NewQuestionView;
+function mapStateToProps({selectedDeck}) {
+  return{selectedDeck}
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({addCard},dispatch)
+}
+// export default NewQuestionView;
+export default connect(mapStateToProps,mapDispatchToProps)(NewQuestionView);
 
 const styles = StyleSheet.create({
   container: {
@@ -46,11 +89,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: black,
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   textInput: {
-    fontSize: 25,
+    fontSize: 18,
     color: 'blue',
     borderColor: '#7a42f4',
     padding: 10,
@@ -60,10 +103,19 @@ const styles = StyleSheet.create({
     width: '70%',
     textAlign: 'center'
   },
-  submitBtn: {
-    backgroundColor: 'green',
-    padding: '5%',
-    color: white,
+  submit: {
+    backgroundColor: white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderColor: 'green',
+    borderWidth: 2,
     borderRadius: 7,
+    width: '30%'
+  },
+  SubmitText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 18
   }
 });

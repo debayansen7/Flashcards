@@ -81,6 +81,7 @@ const MainNavigator = StackNavigator({
   Deck:{
     screen: Deck,
     navigationOptions: {
+      title: 'Deck View',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: black,
@@ -89,16 +90,29 @@ const MainNavigator = StackNavigator({
   },
   NewQuestionView:{
       screen: NewQuestionView,
+      navigationOptions: {
+        title: 'Add Card',
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: black,
+        }
+      }
   },
   Quiz:{
       screen: Quiz,
+      navigationOptions: {
+        title: 'Quiz',
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: black,
+        }
+      }
   },
 })
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ }) : compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 
-// const store = createStore(allReducers);
 const store = createStore(allReducers, enhancer);
 
 export default class App extends React.Component {

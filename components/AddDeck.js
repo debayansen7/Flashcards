@@ -20,7 +20,7 @@ class AddDeck extends React.Component{
 
     if(this.state.text !== ''){
       let data = this.state.text;
-      alert("You created a new deck: "+data);
+      // alert("You created a new deck: "+data);
       let deckData = {
         title:data,
         questions:[]
@@ -33,7 +33,7 @@ class AddDeck extends React.Component{
       this.props.navigation.navigate('Deck', {deckTitle: data});
 
     }else{
-      alert()
+      alert(" Title cannot be blank, please try again!!")
     }
 
     //reset state
@@ -90,10 +90,12 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   submit: {
-    backgroundColor: 'green',
+    backgroundColor: white,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
+    borderColor: 'green',
+    borderWidth: 2,
     borderRadius: 7,
     width: '30%'
   },

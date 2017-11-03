@@ -16,6 +16,7 @@ export function addDeck(deck) {
 
 export const LOAD_DECK = 'LOAD_DECK';
 export const LOAD_QUESTIONS = 'LOAD_QUESTIONS';
+export const ADD_CARD = 'ADD_CARD';
 
 export function loadDeck(deck) {
   return {
@@ -27,5 +28,12 @@ export function loadQuetions(questions) {
   return {
     type: LOAD_QUESTIONS ,
     questions,
+  }
+}
+export function addCard(deckTitle, question) {
+  return {
+    type: ADD_CARD,
+    deckTitle,
+    question,
   }
 }
