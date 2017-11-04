@@ -41,41 +41,73 @@ class Quiz extends React.Component{
     // this.animatedValue = new Animated.Value(0);
   }
 
-  showAns(){
-    this.setState({
-      showAns: true
+  componentWillMount() {
+    this.animatedValue = new Animated.Value(0);
+    this.value = 0;
+    this.animatedValue.addListener(({ value }) => {
+      this.value = value;
     })
+    this.frontInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['0deg','180deg']
+    })
+
+    this.backInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['180deg','360deg']
+    })
+  }
+
+  showAns(){
+    if(this.value >= 90){
+      this.setState({showAns: false})
+      Animated.spring(this.animatedValue, {
+        toValue: 0,
+        friction: 8,
+        tension: 11,
+      }).start();
+    }else{
+      this.setState({showAns: true})
+      Animated.spring(this.animatedValue, {
+        toValue: 180,
+        friction: 8,
+        tension: 11,
+      }).start();
+    }
+
   };
 
   correctAnswer(){
-    console.log("Score: ",this.props.selectedDeck.score);
+    // console.log("Score: ",this.props.selectedDeck.score);
     let title = this.props.selectedDeck.title;
     let score = 0;
     score = this.props.selectedDeck.score+1;
-    console.log(score);
+    // console.log(score);
     this.props.updateScore(title, score);
   };
 
   incorrectAnswer(){
-    console.log("Score: ",this.props.selectedDeck.score);
+    // console.log("Score: ",this.props.selectedDeck.score);
     let title = this.props.selectedDeck.title;
     let score = 0;
     if(this.props.selectedDeck.score > 0){
       score = this.props.selectedDeck.score-1;
-      console.log(score);
+      // console.log(score);
       this.props.updateScore(title, score);
     }
   };
 
   nxtQuestion(){
-    console.log("Next Question");
+    // console.log("Next Question");
     let currentCard = this.props.selectedDeck.currentCard+1;
-    console.log(currentCard);
+    // console.log(currentCard);
     this.props.updateCurrentCard(currentCard);
+    this.setState({showAns: false})
+
   };
 
   resetQuiz(){
-    console.log("Reset Quiz");
+    // console.log("Reset Quiz");
     let title = this.props.selectedDeck.title;
     this.props.updateScore(title, 0);
     this.props.updateCurrentCard(0);
@@ -86,26 +118,53 @@ class Quiz extends React.Component{
     // console.log(qList);
     const correct = 'correct';
     const incorrect = 'incorrect';
+    // this.setState({showAns: false})
+    const frontAnimationStyle = {
+      transform: [
+        { rotateY: this.frontInterpolate }
+      ]
+    };
+    const backAnimationStyle = {
+      transform: [
+        { rotateY: this.backInterpolate }
+      ]
+    };
+
+    // {
+    //   this.state.showAns ?
+    //   <Animated.View style={[styles.qArea, styles.qAreaBk, backAnimationStyle]}>
+    //     <Text style={styles.qHeader}>Answer:</Text>
+    //     <Text style={styles.qText}>{qList.answer}</Text>
+    //   </Animated.View>
+    //   :
+    //   <View style={styles.qArea}></View>
+    // }
     return (
       <View>
-        <View style={styles.qArea}>
+        {
+          !this.state.showAns ?
+          <Animated.View style={[styles.qArea, frontAnimationStyle]}>
           <Text style={styles.qHeader}>Question:</Text>
           <Text style={styles.qText}>{qList.question}</Text>
-        </View>
-        {
-          this.state.showAns ?
-          <View style={styles.qArea}>
-            <Text style={styles.qHeader}>Answer:</Text>
-            <Text style={styles.qText}>{qList.answer}</Text>
-          </View>
+          </Animated.View>
           :
-          <View style={styles.qArea}></View>
+          <Animated.View style={[styles.qArea, styles.qAreaBk, backAnimationStyle]}>
+          <Text style={styles.qHeader}>Answer:</Text>
+          <Text style={styles.qText}>{qList.answer}</Text>
+          </Animated.View>
         }
 
         <View style={styles.bodyBtn}>
-          <TouchableOpacity style={styles.showAns} onPress={this.showAns}>
-            <Text style={styles.showAnsText}>Show Answer</Text>
-          </TouchableOpacity>
+          {
+            this.state.showAns ?
+            <TouchableOpacity style={styles.showAns} onPress={this.showAns}>
+              <Text style={styles.showAnsText}>Show Question</Text>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity style={styles.showAns} onPress={this.showAns}>
+              <Text style={styles.showAnsText}>Show Answer</Text>
+            </TouchableOpacity>
+          }
           <TouchableOpacity style={styles.correctBtn} onPress={this.correctAnswer}>
             <Text style={styles.inputText}>Correct</Text>
           </TouchableOpacity>
@@ -118,11 +177,9 @@ class Quiz extends React.Component{
   };
 
   render() {
-    // console.log(this.props);
     const { count, currentCard, questions, score } = this.props.selectedDeck;
-    // const { cardCount, allCardsCount, currentCard, cards, score } = this.state;
-    // const { cardCount, allCardsCount, currentCard, cards, score } = this.props.quiz;
-    // console.log(questions);
+
+
 
     return(
       <View style={styles.container}>
@@ -191,8 +248,6 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: purple,
-    borderWidth: 2,
     marginBottom: 5,
   },
   qArea:{
@@ -200,6 +255,12 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent: 'center',
     alignItems: 'center',
+    backfaceVisibility: 'hidden',
+  },
+  qAreaBk:{
+    backgroundColor: white,
+    // position: 'absolute',
+    // top: 0
   },
   qHeader:{
     fontSize: 18,
@@ -225,7 +286,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5,
+    margin: 2,
   },
   showAnsText:{
     color: green,
@@ -241,7 +302,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5,
+    margin: 2,
   },
   incorrectBtn: {
     backgroundColor: red,
@@ -251,7 +312,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5,
+    margin: 2,
   },
   inputText:{
     color: white,

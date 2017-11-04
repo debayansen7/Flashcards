@@ -23,7 +23,7 @@ function selectedDeck (state = {}, action) {
       let newArr = state.questions;
       newArr = newArr.concat(arrData);
       let counter = state.count;
-      console.log("New state: ",newArr);
+      // console.log("New state: ",newArr);
       // saveDeckTitle(newArr);
       return {
         ...state,
@@ -32,15 +32,15 @@ function selectedDeck (state = {}, action) {
       }
 
     case UPDATE_SCORE:
-      console.log("Action Score-",action.score);
-      console.log("Action Title-",action.title);
+      // console.log("Action Score-",action.score);
+      // console.log("Action Title-",action.title);
       return {
         ...state,
         score: action.score
       }
 
     case UPDATE_CURRENT_CARD:
-      console.log("Action -",action.currentCard);
+      // console.log("Action -",action.currentCard);
       return {
         ...state,
         currentCard: action.currentCard
