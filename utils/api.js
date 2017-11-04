@@ -8,8 +8,11 @@ export function getDecks(){
 };
 
 // getDeck: take in a single id argument and return the deck associated with that id.
-export function getDeck(){
-  return AsyncStorage.getItem(key).then((data) => {return JSON.parse(data)})
+export function getDeck(keyDeck){
+  return AsyncStorage.getItem(key).then((data) => {
+    let decks = JSON.parse(data).Decks
+    return decks.filter((deck) => deck.title === keyDeck)
+  })
 };
 
 // saveDeckTitle: take in a single title argument and add it to the decks.

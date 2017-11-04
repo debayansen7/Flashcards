@@ -18,17 +18,17 @@ class NewQuestionView extends React.Component{
   }
 
   submit(){
-    console.log("Submit triggered");
-    console.log(this.state.question);
-    console.log(this.state.answer);
-
     if(this.state.question !== '' && this.state.answer!== '' ){
+      console.log(this.state.question);
+      console.log(this.state.answer);
+      console.log("Submit your Question and Answer.");
       let cardData = {
         question : this.state.question,
         answer : this.state.answer
       }
-      this.setState({title:this.props.selectedDeck.title})
-      let deckTitle = this.state.title;
+      // console.log(this.props.selectedDeck.title);
+      this.setState({title: this.props.selectedDeck.title})
+      let deckTitle = this.props.selectedDeck.title;
 
       //save to redux
       this.props.addCard(deckTitle, cardData);
@@ -45,7 +45,7 @@ class NewQuestionView extends React.Component{
   }
 
   render(){
-    console.log(this.props.selectedDeck.title);
+    console.log("DeckTitle: ",this.props.selectedDeck.title);
     return(
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.text}>Your question:</Text>
@@ -68,11 +68,11 @@ class NewQuestionView extends React.Component{
           <Text style={styles.submitText}>SUBMIT</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    );
+    )
   }
 }
-function mapStateToProps({selectedDeck}) {
-  return{selectedDeck}
+function mapStateToProps({decks, selectedDeck}) {
+  return{decks, selectedDeck}
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({addCard},dispatch)

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { loadAllDecks } from '../actions/index';
@@ -27,7 +28,7 @@ class AllDecks extends React.Component{
     // console.log(cardTitle, cardCount);
     return(
       <TouchableOpacity style={styles.deckListStyle}
-                        onPress={() => this.props.navigation.navigate('Deck', {deckTitle: cardTitle})}>
+        onPress={() => this.props.navigation.navigate('Deck',{deckTitle: cardTitle, deckCardCount: cardCount})}>
         <Text style={styles.deckListText}>{cardTitle} Deck - {cardCount} Cards</Text>
       </TouchableOpacity>
     )
@@ -38,7 +39,7 @@ class AllDecks extends React.Component{
 
   render(){
     const {decks} = this.props;
-    console.log(decks);
+    // console.log(decks);
     return(
       <View style={styles.container}>
         <Text style={styles.header1}>All Decks here:</Text>
@@ -50,9 +51,8 @@ class AllDecks extends React.Component{
           :
           <Text >No Decks yets</Text>
         }
-
       </View>
-    );
+    )
   }
 }
 

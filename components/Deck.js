@@ -11,7 +11,6 @@ import { getDeck } from '../utils/api';
 class Deck extends React.Component{
   constructor(props){
   	super(props);
-
     this.toAddCardSection= this.toAddCardSection.bind(this);
     this.toStartQuizSection= this.toStartQuizSection.bind(this);
   }
@@ -27,29 +26,28 @@ class Deck extends React.Component{
   }
 
   componentDidMount() {
-    getDeck().then((results)=> {
-      let dataSet = results.Decks;
-      console.log(dataSet);
       let selectedDeck = this.props.navigation.state.params.deckTitle;
-      console.log(selectedDeck);
-      let newArr = dataSet.filter((deck) => deck.title === selectedDeck)
-      console.log(newArr);
-      let objData = {
-        title: newArr[0].title,
-        questions: newArr[0].questions,
-        count: newArr[0].questions.length
-      }
-      console.log(objData);
-      this.props.loadDeck(objData)
-      // this.setState({
-      //   title: this.props.navigation.state.params.deckTitle
-      // })
+      getDeck(selectedDeck).then((deck)=> {
+        // console.log(deck);
+        let objData = {
+          title: deck[0].title,
+          questions: deck[0].questions,
+          count: deck[0].questions.length
+        }
+        console.log(objData);
+        console.log(this.props.selectedDeck.count);
+        if(this.props.selectedDeck.count === undefined){
+          this.props.loadDeck(objData)
+          console.log("True");
+        }else{
+          console.log("False");
+        }
     });
   }
 
   render(){
-    console.log(this.props.navigation);
-    const {selectedDeck} = this.props;
+    // console.log(this.props.navigation);
+    const {selectedDeck, decks} = this.props;
     return(
       <View style={styles.container}>
         <Text style={styles.header1}>{selectedDeck.title}</Text>
@@ -65,8 +63,8 @@ class Deck extends React.Component{
   }
 }
 
-function mapStateToProps({selectedDeck}) {
-  return{selectedDeck}
+function mapStateToProps({decks, selectedDeck}) {
+  return{decks, selectedDeck}
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({loadDeck},dispatch)

@@ -30,10 +30,10 @@ export function loadQuetions(questions) {
     questions,
   }
 }
-export function addCard(deckTitle, question) {
+export function addCard(deckTitle, card) {
   return {
     type: ADD_CARD,
     deckTitle,
-    question,
+    card,
   }
 }

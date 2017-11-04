@@ -1,11 +1,12 @@
-import { LOAD_DECK, LOAD_QUESTIONS, ADD_CARD } from '../actions'
+// import { LOAD_DECK, LOAD_QUESTIONS } from '../actions'
+import { LOAD_DECK, LOAD_QUESTIONS, ADD_CARD } from '../actions';
+import { saveDeckTitle } from '../utils/api';
 
 function selectedDeck (state = {}, action) {
   switch (action.type) {
 
     case LOAD_DECK :
-      console.log(action.deck);
-
+      // console.log(action.deck);
       return {
         ...state,
         ...action.deck
@@ -18,12 +19,17 @@ function selectedDeck (state = {}, action) {
       }
 
     case ADD_CARD :
-      let arrData = action.question;
+      let arrData = action.card;
       let newArr = state.questions;
       newArr = newArr.concat(arrData);
-      // console.log("New state: ",newArr);
+      let counter = state.count;
+      console.log("New state: ",newArr);
       // saveDeckTitle(newArr);
-      return state.questions = newArr
+      return {
+        ...state,
+        questions: newArr,
+        count: counter+1
+      }
 
     default :
       return state
