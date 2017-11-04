@@ -7,7 +7,7 @@ function quiz (state = InitialState, action) {
   switch (action.type) {
 
     case LOAD_QUIZ_QUESTIONS:
-      console.log(action);
+      // console.log(action);
       return action.questions
 
     default :

@@ -33,13 +33,13 @@ function decks (state = InitialState, action) {
       return state = deckState
 
     case UPDATE_SCORE:
-      console.log("Action Score-",action.score);
-      console.log("Deck State:",state);
+      // console.log("Action Score-",action.score);
+      // console.log("Deck State:",state);
       let deckScore = action.score;
       deckTitle = action.title;
       deckState = state.map((deck) => {
         if(deck.title === deckTitle){
-          console.log("Deck Score", deckScore);
+          // console.log("Deck Score", deckScore);
           deck.score = deckScore;
         }
         return deck

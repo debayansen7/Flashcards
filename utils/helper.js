@@ -1,21 +1,53 @@
+import React from 'react';
 import { AsyncStorage } from 'react-native';
+import { Notifications, Permissions } from 'expo';
 
-// getDecks: return all of the decks along with their titles, questions, and answers.
-export function getDecks(){
-  console.log("Fired GetDecks");
+const NOTIFICATION_KEY = 'FlashCard';
+
+export function clearlocalNotification(){
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
 };
 
-// getDeck: take in a single id argument and return the deck associated with that id.
-export function getDeck(){
-
+function createNotification(){
+  return {
+    title: 'You need to Study for today!!',
+    body: `Don't forget to study for today.`,
+    android:{
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true,
+    }
+  }
 };
 
-// saveDeckTitle: take in a single title argument and add it to the decks.
-export function saveDeckTitle(){
+export function setlocalNotification(){
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then((data) => {
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS)
+          .then(({ status }) => {
+            if (status === 'granted') {
+              Notifications.cancelAllScheduledNotificationsAsync()
 
-};
+              let tomorrow = new Date()
+              tomorrow.setDate(tomorrow.getDate() + 1)
+              tomorrow.setHours(12)
+              tomorrow.setMinutes(0)
 
-// addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title.
-export function addCardToDeck(){
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time: tomorrow,
+                  repeat: 'day',
+                }
+              )
 
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+            }
+          })
+      }
+    })
 };

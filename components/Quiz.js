@@ -26,21 +26,6 @@ class Quiz extends React.Component{
     this.showAns = this.showAns.bind(this);
   }
 
-  componentDidMount() {
-
-    // console.log(this.props.selectedDeck);
-    // // console.log(this.props.quiz);
-    // const { questions } = this.props.selectedDeck;
-    // this.setState({
-    //   allCardsCount: this.props.selectedDeck.questions.length,
-    //   cards: this.props.selectedDeck.questions,
-    //   currentCard: questions[this.state.cardCount]
-    // })
-    // console.log(this.state.currentCard);
-
-    // this.animatedValue = new Animated.Value(0);
-  }
-
   componentWillMount() {
     this.animatedValue = new Animated.Value(0);
     this.value = 0;
@@ -130,15 +115,6 @@ class Quiz extends React.Component{
       ]
     };
 
-    // {
-    //   this.state.showAns ?
-    //   <Animated.View style={[styles.qArea, styles.qAreaBk, backAnimationStyle]}>
-    //     <Text style={styles.qHeader}>Answer:</Text>
-    //     <Text style={styles.qText}>{qList.answer}</Text>
-    //   </Animated.View>
-    //   :
-    //   <View style={styles.qArea}></View>
-    // }
     return (
       <View>
         {

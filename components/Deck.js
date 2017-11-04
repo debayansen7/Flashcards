@@ -7,6 +7,7 @@ import { loadDeck, loadQuizQuestions } from '../actions/index';
 
 import { white, gray, black, green } from '../utils/colors';
 import { getDeck } from '../utils/api';
+import { clearlocalNotification, setlocalNotification } from '../utils/helper';
 
 class Deck extends React.Component{
   constructor(props){
@@ -25,7 +26,8 @@ class Deck extends React.Component{
   }
 
   toStartQuizSection(){
-    console.log("Go to StartQuizSection");
+    // console.log("Go to StartQuizSection");
+    clearlocalNotification().then(setlocalNotification)
     this.props.navigation.navigate('Quiz', {deck: this.props.selectedDeck});
   }
 
