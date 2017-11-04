@@ -19,9 +19,9 @@ class NewQuestionView extends React.Component{
 
   submit(){
     if(this.state.question !== '' && this.state.answer!== '' ){
-      console.log(this.state.question);
-      console.log(this.state.answer);
-      console.log("Submit your Question and Answer.");
+      // console.log(this.state.question);
+      // console.log(this.state.answer);
+      alert("Successfully submited your Question and Answer.");
       let cardData = {
         question : this.state.question,
         answer : this.state.answer
@@ -34,7 +34,10 @@ class NewQuestionView extends React.Component{
       this.props.addCard(deckTitle, cardData);
 
       //Navigate to deck details page
-      this.props.navigation.navigate('Deck', {deckTitle: deckTitle});
+      // this.props.navigation.navigate('Deck', {deckTitle: deckTitle});
+      const {goBack} = this.props.navigation;
+      // goBack('Deck');
+      goBack();
 
     }else{
       alert("Cannot have blank fields!!")
@@ -45,7 +48,7 @@ class NewQuestionView extends React.Component{
   }
 
   render(){
-    console.log("DeckTitle: ",this.props.selectedDeck.title);
+    // console.log("DeckTitle: ",this.props.selectedDeck.title);
     return(
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.text}>Your question:</Text>

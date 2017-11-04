@@ -23,7 +23,9 @@ class AddDeck extends React.Component{
       // alert("You created a new deck: "+data);
       let deckData = {
         title:data,
-        questions:[]
+        questions:[],
+        count: 0,
+        score: 0,
       }
 
       //save to redux

@@ -25,11 +25,12 @@ class AllDecks extends React.Component{
   renderList = ({ item }) => {
     let cardTitle = item.title;
     let cardCount = item.questions.length;
+    let cardScore = item.score;
     // console.log(cardTitle, cardCount);
     return(
       <TouchableOpacity style={styles.deckListStyle}
         onPress={() => this.props.navigation.navigate('Deck',{deckTitle: cardTitle, deckCardCount: cardCount})}>
-        <Text style={styles.deckListText}>{cardTitle} Deck - {cardCount} Cards</Text>
+        <Text style={styles.deckListText}>Deck - {cardTitle}, Cards - {cardCount} </Text>
       </TouchableOpacity>
     )
   };

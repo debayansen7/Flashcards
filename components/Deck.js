@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { loadDeck } from '../actions/index';
+import { loadDeck, loadQuizQuestions } from '../actions/index';
 
 import { white, gray, black, green } from '../utils/colors';
 import { getDeck } from '../utils/api';
@@ -11,12 +11,16 @@ import { getDeck } from '../utils/api';
 class Deck extends React.Component{
   constructor(props){
   	super(props);
+    this.state={
+      title: '',
+      count: 0,
+    }
     this.toAddCardSection= this.toAddCardSection.bind(this);
     this.toStartQuizSection= this.toStartQuizSection.bind(this);
   }
 
   toAddCardSection(){
-    console.log("Go to AddCardSection");
+    // console.log("Go to AddCardSection");
     this.props.navigation.navigate('NewQuestionView', {deck: this.props.selectedDeck});
   }
 
@@ -26,38 +30,50 @@ class Deck extends React.Component{
   }
 
   componentDidMount() {
+      // console.log("deck loading");
       let selectedDeck = this.props.navigation.state.params.deckTitle;
       getDeck(selectedDeck).then((deck)=> {
         // console.log(deck);
         let objData = {
           title: deck[0].title,
           questions: deck[0].questions,
-          count: deck[0].questions.length
+          count: deck[0].questions.length,
+          score: deck[0].score,
+          currentCard: 0,
         }
-        console.log(objData);
-        console.log(this.props.selectedDeck.count);
-        if(this.props.selectedDeck.count === undefined){
+        // console.log(objData);
+        // console.log(this.props.selectedDeck.count);
+        this.setState({
+          title:objData.title,
+          count: objData.count
+        })
+        // if(this.props.selectedDeck.count === undefined ){
           this.props.loadDeck(objData)
-          console.log("True");
-        }else{
-          console.log("False");
-        }
+          // this.props.loadQuizQuestions(objData.questions)
+        //   console.log("True");
+        // }else{
+        //   console.log("False");
+        // }
     });
   }
 
   render(){
-    // console.log(this.props.navigation);
-    const {selectedDeck, decks} = this.props;
+    // console.log(this.props.navigation.goBack);
+    const {title, count, score} = this.props.selectedDeck;
     return(
       <View style={styles.container}>
-        <Text style={styles.header1}>{selectedDeck.title}</Text>
-        <Text style={styles.header2}>{selectedDeck.count} - Cards</Text>
+        <Text style={styles.header1}>{title}</Text>
+        <Text style={styles.header2}>{count} - Cards, Score - {score}</Text>
         <TouchableOpacity style={styles.addBtn} onPress={this.toAddCardSection}>
           <Text>Add Card</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.startQuizBtn} onPress={this.toStartQuizSection}>
-          <Text>Start Quiz</Text>
-        </TouchableOpacity>
+        { count !== 0 ?
+          <TouchableOpacity style={styles.startQuizBtn} onPress={this.toStartQuizSection}>
+            <Text>Start Quiz</Text>
+          </TouchableOpacity>
+          :
+          <Text> </Text>
+        }
       </View>
     );
   }
@@ -67,7 +83,7 @@ function mapStateToProps({decks, selectedDeck}) {
   return{decks, selectedDeck}
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({loadDeck},dispatch)
+  return bindActionCreators({loadDeck, loadQuizQuestions},dispatch)
 }
 // export default Deck;
 export default connect(mapStateToProps, mapDispatchToProps)(Deck);
