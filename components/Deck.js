@@ -21,46 +21,30 @@ class Deck extends React.Component{
   }
 
   toAddCardSection(){
-    // console.log("Go to AddCardSection");
     this.props.navigation.navigate('NewQuestionView', {deck: this.props.selectedDeck});
   }
 
   toStartQuizSection(){
-    // console.log("Go to StartQuizSection");
     clearlocalNotification().then(setlocalNotification)
     this.props.navigation.navigate('Quiz', {deck: this.props.selectedDeck});
   }
 
   componentDidMount() {
-      // console.log("deck loading");
-      let selectedDeck = this.props.navigation.state.params.deckTitle;
-      getDeck(selectedDeck).then((deck)=> {
-        // console.log(deck);
-        let objData = {
-          title: deck[0].title,
-          questions: deck[0].questions,
-          count: deck[0].questions.length,
-          score: deck[0].score,
-          currentCard: 0,
-        }
-        // console.log(objData);
-        // console.log(this.props.selectedDeck.count);
-        this.setState({
-          title:objData.title,
-          count: objData.count
-        })
-        // if(this.props.selectedDeck.count === undefined ){
-          this.props.loadDeck(objData)
-          // this.props.loadQuizQuestions(objData.questions)
-        //   console.log("True");
-        // }else{
-        //   console.log("False");
-        // }
+    let selectedDeck = this.props.navigation.state.params.deckTitle;
+    getDeck(selectedDeck).then((deck)=> {
+      let objData = {
+        title: deck[0].title,
+        questions: deck[0].questions,
+        count: deck[0].questions.length,
+        score: deck[0].score,
+        currentCard: 0,
+      }
+      this.setState({title:objData.title,count: objData.count})
+      this.props.loadDeck(objData)
     });
   }
 
   render(){
-    // console.log(this.props.navigation.goBack);
     const {title, count, score} = this.props.selectedDeck;
     return(
       <View style={styles.container}>
@@ -87,7 +71,6 @@ function mapStateToProps({decks, selectedDeck}) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({loadDeck, loadQuizQuestions},dispatch)
 }
-// export default Deck;
 export default connect(mapStateToProps, mapDispatchToProps)(Deck);
 
 const styles = StyleSheet.create({

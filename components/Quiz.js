@@ -26,6 +26,7 @@ class Quiz extends React.Component{
     this.showAns = this.showAns.bind(this);
     this.updateScore = this.updateScore.bind(this);
     this.updateCard = this.updateCard.bind(this);
+    this.backToDeck = this.backToDeck.bind(this);
   };
 
   componentWillMount() {
@@ -66,7 +67,6 @@ class Quiz extends React.Component{
 
   updateScore(score){
     console.log("Score: ",score);
-    // console.log("Score: ",this.props.selectedDeck.score);
     let title = this.props.selectedDeck.title;
     this.props.updateScore(title, score);
   };
@@ -102,7 +102,6 @@ class Quiz extends React.Component{
   };
 
   resetQuiz(){
-    // console.log("Reset Quiz");
     let title = this.props.selectedDeck.title;
     this.props.updateScore(title, 0);
     this.props.updateCurrentCard(0);
@@ -111,11 +110,15 @@ class Quiz extends React.Component{
     this.showAns();
   };
 
+  backToDeck(){
+    //Navigate to deck details page
+    const {goBack} = this.props.navigation;
+    goBack();
+  }
+
   renderQuestion(qList){
-    // console.log(qList);
     const correct = 'correct';
     const incorrect = 'incorrect';
-    // this.setState({showAns: false})
     const frontAnimationStyle = {
       transform: [
         { rotateY: this.frontInterpolate }
@@ -196,7 +199,7 @@ class Quiz extends React.Component{
             <Text style={styles.btnText}>Reset Quiz</Text>
           </TouchableOpacity>
           { this.state.showScore ?
-            <TouchableOpacity style={styles.nxtBtn} onPress={this.nxtQuestion}>
+            <TouchableOpacity style={styles.nxtBtn} onPress={this.backToDeck}>
               <Text style={styles.btnText}>Back to Deck</Text>
             </TouchableOpacity>
             :

@@ -19,14 +19,11 @@ class NewQuestionView extends React.Component{
 
   submit(){
     if(this.state.question !== '' && this.state.answer!== '' ){
-      // console.log(this.state.question);
-      // console.log(this.state.answer);
       alert("Successfully submited your Question and Answer.");
       let cardData = {
         question : this.state.question,
         answer : this.state.answer
       }
-      // console.log(this.props.selectedDeck.title);
       this.setState({title: this.props.selectedDeck.title})
       let deckTitle = this.props.selectedDeck.title;
 
@@ -34,9 +31,7 @@ class NewQuestionView extends React.Component{
       this.props.addCard(deckTitle, cardData);
 
       //Navigate to deck details page
-      // this.props.navigation.navigate('Deck', {deckTitle: deckTitle});
       const {goBack} = this.props.navigation;
-      // goBack('Deck');
       goBack();
 
     }else{
@@ -48,7 +43,6 @@ class NewQuestionView extends React.Component{
   }
 
   render(){
-    // console.log("DeckTitle: ",this.props.selectedDeck.title);
     return(
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.text}>Your question:</Text>
@@ -80,7 +74,6 @@ function mapStateToProps({decks, selectedDeck}) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({addCard},dispatch)
 }
-// export default NewQuestionView;
 export default connect(mapStateToProps,mapDispatchToProps)(NewQuestionView);
 
 const styles = StyleSheet.create({

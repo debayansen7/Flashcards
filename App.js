@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 
 import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore } from 'redux';
+// import { createStore, applyMiddleware, compose } from 'redux';
 import allReducers from './reducers/allReducers';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+// import thunk from 'redux-thunk';
+// import logger from 'redux-logger';
 
 import { Constants } from 'expo';
 import { FontAwesome, Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -112,10 +112,10 @@ const MainNavigator = StackNavigator({
   }
 })
 
-const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ }) : compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
-const store = createStore(allReducers, enhancer);
-// const store = createStore(allReducers);
+// const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ }) : compose;
+// const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
+// const store = createStore(allReducers, enhancer);
+const store = createStore(allReducers);
 
 export default class App extends React.Component {
 

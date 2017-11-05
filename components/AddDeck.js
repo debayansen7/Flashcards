@@ -20,7 +20,6 @@ class AddDeck extends React.Component{
 
     if(this.state.text !== ''){
       let data = this.state.text;
-      // alert("You created a new deck: "+data);
       let deckData = {
         title:data,
         questions:[],

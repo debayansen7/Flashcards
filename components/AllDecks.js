@@ -14,7 +14,6 @@ class AllDecks extends React.Component{
     getDecks().then((results)=> {
       if(results !== null){
         let decks = results.Decks;
-        // console.log("Results: ",decks);
         this.props.loadAllDecks(decks)
       }
 
@@ -26,7 +25,6 @@ class AllDecks extends React.Component{
     let cardTitle = item.title;
     let cardCount = item.questions.length;
     let cardScore = item.score;
-    // console.log(cardTitle, cardCount);
     return(
       <TouchableOpacity style={styles.deckListStyle}
         onPress={() => this.props.navigation.navigate('Deck',{deckTitle: cardTitle, deckCardCount: cardCount})}>
@@ -40,7 +38,6 @@ class AllDecks extends React.Component{
 
   render(){
     const {decks} = this.props;
-    // console.log(decks);
     return(
       <View style={styles.container}>
         <Text style={styles.header1}>All Decks here:</Text>
