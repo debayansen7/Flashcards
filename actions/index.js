@@ -47,7 +47,7 @@ export function updateScore (title, score){
   }
 }
 export function updateCurrentCard (currentCard){
-  console.log(currentCard);
+  // console.log(currentCard);
   return {
     type: UPDATE_CURRENT_CARD ,
     currentCard,

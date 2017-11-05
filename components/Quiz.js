@@ -17,14 +17,16 @@ class Quiz extends React.Component{
       answerShow: false,
       score: 0,
       showAns: false,
+      showScore: false,
     };
     this.correctAnswer = this.correctAnswer.bind(this);
     this.incorrectAnswer = this.incorrectAnswer.bind(this);
-    this.nxtQuestion = this.nxtQuestion.bind(this);
     this.resetQuiz = this.resetQuiz.bind(this);
     this.renderQuestion = this.renderQuestion.bind(this);
     this.showAns = this.showAns.bind(this);
-  }
+    this.updateScore = this.updateScore.bind(this);
+    this.updateCard = this.updateCard.bind(this);
+  };
 
   componentWillMount() {
     this.animatedValue = new Animated.Value(0);
@@ -41,7 +43,7 @@ class Quiz extends React.Component{
       inputRange: [0, 180],
       outputRange: ['180deg','360deg']
     })
-  }
+  };
 
   showAns(){
     if(this.value >= 90){
@@ -62,33 +64,41 @@ class Quiz extends React.Component{
 
   };
 
-  correctAnswer(){
+  updateScore(score){
+    console.log("Score: ",score);
     // console.log("Score: ",this.props.selectedDeck.score);
     let title = this.props.selectedDeck.title;
-    let score = 0;
-    score = this.props.selectedDeck.score+1;
-    // console.log(score);
     this.props.updateScore(title, score);
   };
 
-  incorrectAnswer(){
-    // console.log("Score: ",this.props.selectedDeck.score);
-    let title = this.props.selectedDeck.title;
-    let score = 0;
-    if(this.props.selectedDeck.score > 0){
-      score = this.props.selectedDeck.score-1;
-      // console.log(score);
-      this.props.updateScore(title, score);
+  updateCard(currentCard){
+    if(currentCard >= this.props.selectedDeck.count){
+      this.setState({showScore:true});
+      this.props.updateCurrentCard(0);
+    }else{
+      this.props.updateCurrentCard(currentCard);
     }
   };
 
-  nxtQuestion(){
-    // console.log("Next Question");
+  correctAnswer(){
+    let score = 0;
+    if(this.state.score < this.props.selectedDeck.count){
+      score = this.state.score+1;
+      this.setState({score})
+      console.log("Increment Score: ",score);
+      this.updateScore(score);
+    }
+    this.setState({showAns: false});
+    this.showAns();
     let currentCard = this.props.selectedDeck.currentCard+1;
-    // console.log(currentCard);
-    this.props.updateCurrentCard(currentCard);
-    this.setState({showAns: false})
+    this.updateCard(currentCard);
+  };
 
+  incorrectAnswer(){
+    this.setState({showAns: false});
+    this.showAns();
+    let currentCard = this.props.selectedDeck.currentCard+1;
+    this.updateCard(currentCard);
   };
 
   resetQuiz(){
@@ -96,7 +106,9 @@ class Quiz extends React.Component{
     let title = this.props.selectedDeck.title;
     this.props.updateScore(title, 0);
     this.props.updateCurrentCard(0);
-
+    this.setState({showScore:false});
+    this.setState({showAns: false});
+    this.showAns();
   };
 
   renderQuestion(qList){
@@ -141,10 +153,16 @@ class Quiz extends React.Component{
               <Text style={styles.showAnsText}>Show Answer</Text>
             </TouchableOpacity>
           }
-          <TouchableOpacity style={styles.correctBtn} onPress={this.correctAnswer}>
+          <TouchableOpacity
+            style={!this.state.showAns ? styles.disabled : styles.correctBtn}
+            onPress={this.correctAnswer}
+            disabled={!this.state.showAns}>
             <Text style={styles.inputText}>Correct</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.incorrectBtn} onPress={this.incorrectAnswer}>
+          <TouchableOpacity
+            style={!this.state.showAns ? styles.disabled : styles.incorrectBtn}
+            onPress={this.incorrectAnswer}
+            disabled={!this.state.showAns}>
             <Text style={styles.inputText}>Incorrect</Text>
           </TouchableOpacity>
         </View>
@@ -153,10 +171,8 @@ class Quiz extends React.Component{
   };
 
   render() {
-    const { count, currentCard, questions, score } = this.props.selectedDeck;
-
-
-
+    const { count, currentCard, questions } = this.props.selectedDeck;
+    const { score } = this.state;
     return(
       <View style={styles.container}>
 
@@ -164,18 +180,24 @@ class Quiz extends React.Component{
           <Text style={styles.counterText}>Question No: {currentCard+1}/{count}</Text>
         </View>
 
-        <View style={styles.bodyArea}>
-          {this.renderQuestion(questions[currentCard])}
-        </View>
+        {
+          this.state.showScore ?
+          <View style={styles.bodyArea}>
+          <Text>Final Score: {this.props.selectedDeck.score}</Text>
+          </View>
+          :
+          <View style={styles.bodyArea}>
+            {this.renderQuestion(questions[currentCard])}
+          </View>
+        }
 
         <View style={styles.btnArea}>
-          <Text style={styles.scoreArea}>Score: {score}</Text>
           <TouchableOpacity style={styles.resetBtn} onPress={this.resetQuiz}>
             <Text style={styles.btnText}>Reset Quiz</Text>
           </TouchableOpacity>
-          {count > 1 && currentCard+1 !== count?
+          { this.state.showScore ?
             <TouchableOpacity style={styles.nxtBtn} onPress={this.nxtQuestion}>
-              <Text style={styles.btnText}>Next Question</Text>
+              <Text style={styles.btnText}>Back to Deck</Text>
             </TouchableOpacity>
             :
             <Text> </Text>
@@ -186,15 +208,15 @@ class Quiz extends React.Component{
     );
   }
 
-}
+};
 
 function mapStateToProps({decks, selectedDeck}) {
   return{decks, selectedDeck}
-}
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({updateScore, updateCurrentCard},dispatch)
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
 
@@ -282,6 +304,16 @@ const styles = StyleSheet.create({
   },
   incorrectBtn: {
     backgroundColor: red,
+    padding: 10,
+    borderColor: black,
+    borderWidth: 2,
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2,
+  },
+  disabled:{
+    backgroundColor: gray,
     padding: 10,
     borderColor: black,
     borderWidth: 2,
