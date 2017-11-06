@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { loadAllDecks } from '../actions/index';
-
 import { getDecks } from '../utils/api';
 import styles from '../components/styles';
 

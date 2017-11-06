@@ -1,4 +1,4 @@
-import { LOAD_QUIZ_QUESTIONS  } from '../actions';
+import { LOAD_QUIZ_QUESTIONS  } from '../actions/actionTypes';
 import { saveDeckTitle } from '../utils/api';
 
 const InitialState = []

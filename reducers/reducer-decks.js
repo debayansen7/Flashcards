@@ -1,7 +1,23 @@
-import { LOAD_All_DECKS, ADD_DECK, ADD_CARD, UPDATE_SCORE } from '../actions';
+import { LOAD_All_DECKS, ADD_DECK, ADD_CARD, UPDATE_SCORE } from '../actions/actionTypes';
 import { saveDeckTitle } from '../utils/api';
 
-const InitialState = []
+const InitialState = [
+  {
+    title: 'React',
+    questions: [
+      {
+        question: "What is React?",
+        answer: "A library for managing user interfaces"
+      },
+      {
+        question: "Where do you make Ajax requests in React?",
+        answer: "componentDidMount lifecycle event"
+      }
+    ],
+    count: 0,
+    score: 0
+  }
+]
 
 function decks (state = InitialState, action) {
   switch (action.type) {

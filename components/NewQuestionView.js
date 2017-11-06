@@ -43,7 +43,7 @@ class NewQuestionView extends React.Component{
 
   render(){
     return(
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <Text style={styles.text}>Your question:</Text>
         <TextInput
           style={styles.textInput}

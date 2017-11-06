@@ -1,5 +1,13 @@
-export const LOAD_All_DECKS = 'LOAD_All_DECKS';
-export const ADD_DECK = 'ADD_DECK';
+import {
+  LOAD_All_DECKS,
+  ADD_DECK,
+  LOAD_DECK,
+  LOAD_QUESTIONS,
+  ADD_CARD,
+  UPDATE_SCORE,
+  UPDATE_CURRENT_CARD,
+  LOAD_QUIZ_QUESTIONS
+} from './actionTypes';
 
 export function loadAllDecks(allDecks) {
   return {
@@ -13,12 +21,6 @@ export function addDeck(deck) {
     deck,
   }
 }
-
-export const LOAD_DECK = 'LOAD_DECK';
-export const LOAD_QUESTIONS = 'LOAD_QUESTIONS';
-export const ADD_CARD = 'ADD_CARD';
-export const UPDATE_SCORE = 'UPDATE_SCORE';
-export const UPDATE_CURRENT_CARD = 'UPDATE_CURRENT_CARD';
 
 export function loadDeck(deck) {
   return {
@@ -53,7 +55,6 @@ export function updateCurrentCard (currentCard){
   }
 }
 
-export const LOAD_QUIZ_QUESTIONS = 'LOAD_QUIZ_QUESTIONS';
 export function loadQuizQuestions (questions){
   return {
     type: LOAD_QUIZ_QUESTIONS ,

@@ -8,18 +8,29 @@ Using this app,
 This project consist of a server, to install and run the server, please follow the following steps:
 
 Pre-Requistes:
-* node
-* git
-* expo - simulator app on android
-
+  * node
+  * git
+  * expo - simulator app on android
 
 Get React Project:
-* git clone https://github.com/debayansen7/Flashcards.git
-* cd Flashcards
+  * git clone https://github.com/debayansen7/Flashcards.git
+  * cd Flashcards
 
 To get started:
-* install all project dependencies with `npm install`
-* start the development server with `npm start` or `yarn start`
-* Using expo, view the app either on simulator or smartphone
+  * install all project dependencies with `npm install`
+  * start the development server with `npm start` or `yarn start`
+  * Using expo, view the app either on simulator or smartphone
+    Details on Expo: https://docs.expo.io/versions/latest/index.html
 
-This App has been tested on Android smartphone - moto G5 plus
+Tested Devices:
+  * Android smartphone - moto G5 plus
+
+Contributing Informations:
+  * React : https://reactjs.org/docs/hello-world.html
+  * React Native : https://facebook.github.io/react-native/docs/getting-started.html
+  * React Navigation : https://reactnavigation.org/docs/intro/
+  * Expo : https://docs.expo.io/versions/latest/index.html
+
+License: MIT
+
+Copyright (c) 2017 Debayan Sen

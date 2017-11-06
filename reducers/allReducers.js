@@ -9,4 +9,4 @@ const allReducer = combineReducers({
   quiz: quiz
 })
 
-export default allReducer
+export default allReducer;

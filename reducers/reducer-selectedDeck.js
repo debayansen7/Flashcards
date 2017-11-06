@@ -1,5 +1,5 @@
 // import { LOAD_DECK, LOAD_QUESTIONS } from '../actions'
-import { LOAD_DECK, LOAD_QUESTIONS, ADD_CARD, UPDATE_SCORE, UPDATE_CURRENT_CARD } from '../actions';
+import { LOAD_DECK, LOAD_QUESTIONS, ADD_CARD, UPDATE_SCORE, UPDATE_CURRENT_CARD } from '../actions/actionTypes';
 import { saveDeckTitle } from '../utils/api';
 
 function selectedDeck (state = {}, action) {

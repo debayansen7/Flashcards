@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Animated} from 'react-native';
-
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { updateScore, updateCurrentCard } from '../actions/index';
