@@ -1,5 +1,6 @@
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { purple, gray, white, red, orange, blue, lightPurp, pink, black } from '../utils/colors';
+import { FontAwesome, Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import AllDecks from './AllDecks';
 import AddDeck from './AddDeck';
@@ -19,7 +20,7 @@ export const Tabs = TabNavigator({
     screen: AddDeck,
     navigationOptions: {
       tabBarLabel: 'Add New Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='md-cards-outline' size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
   }
   },  {

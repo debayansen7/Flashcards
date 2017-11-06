@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,7 +7,7 @@ import { getDeck } from '../utils/api';
 import { clearlocalNotification, setlocalNotification } from '../utils/helper';
 import styles from '../components/styles';
 
-class Deck extends React.Component{
+class Deck extends Component{
   constructor(props){
   	super(props);
     this.state={

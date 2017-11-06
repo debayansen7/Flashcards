@@ -18,7 +18,7 @@ Get React Project:
 
 To get started:
   * install all project dependencies with `npm install`
-  * start the development server with `npm start` or `yarn start`
+  * start the development server with `yarn start`
   * Using expo, view the app either on simulator or smartphone
     Details on Expo: https://docs.expo.io/versions/latest/index.html
 

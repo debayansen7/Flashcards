@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 
@@ -32,7 +32,7 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 // const store = createStore(allReducers, enhancer);
 const store = createStore(allReducers);
 
-export default class App extends React.Component {
+export default class App extends Component {
 
   componentDidMount() {
     setlocalNotification()

@@ -1,11 +1,11 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Animated} from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { updateScore, updateCurrentCard } from '../actions/index';
 import styles from '../components/styles';
 
-class Quiz extends React.Component{
+class Quiz extends Component{
   constructor(props){
   	super(props);
   	this.state = {

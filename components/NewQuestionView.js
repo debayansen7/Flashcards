@@ -1,11 +1,11 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import { KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { addCard } from '../actions/index';
 import styles from '../components/styles';
 
-class NewQuestionView extends React.Component{
+class NewQuestionView extends Component{
   constructor(props){
   	super(props);
   	this.state = {
