@@ -13,6 +13,9 @@ function createNotification(){
   return {
     title: 'You need to Study for today!!',
     body: `Don't forget to study for today.`,
+    ios: {
+      sound: true,
+    },
     android:{
       sound: true,
       priority: 'high',
