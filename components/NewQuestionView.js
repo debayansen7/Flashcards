@@ -3,8 +3,7 @@ import { KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput } f
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { addCard } from '../actions/index';
-
-import { white, red, gray, black } from '../utils/colors';
+import styles from '../components/styles';
 
 class NewQuestionView extends React.Component{
   constructor(props){
@@ -75,43 +74,3 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({addCard},dispatch)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(NewQuestionView);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: black,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  textInput: {
-    fontSize: 18,
-    color: 'blue',
-    borderColor: '#7a42f4',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 7,
-    borderWidth: 1,
-    width: '70%',
-    textAlign: 'center'
-  },
-  submit: {
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    borderColor: 'green',
-    borderWidth: 2,
-    borderRadius: 7,
-    width: '30%'
-  },
-  SubmitText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 18
-  }
-});

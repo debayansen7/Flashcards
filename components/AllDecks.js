@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { loadAllDecks } from '../actions/index';
 
-import { white, gray, black, lightPurp } from '../utils/colors'
-import { getDecks } from '../utils/api'
+import { getDecks } from '../utils/api';
+import styles from '../components/styles';
 
 class AllDecks extends React.Component{
 
@@ -61,32 +61,3 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({loadAllDecks},dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AllDecks);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  header1:{
-    color:black,
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  deckListStyle: {
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    margin:5,
-    borderColor : lightPurp,
-    borderWidth : 2,
-    borderRadius : 7
-  },
-  deckListText: {
-    color:black,
-    fontSize: 20,
-  }
-
-});

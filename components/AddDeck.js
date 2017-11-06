@@ -3,9 +3,7 @@ import { KeyboardAvoidingView, View, Text, StyleSheet, TouchableOpacity, TextInp
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { addDeck } from '../actions/index';
-
-import Buttons from './Buttons'
-import { white, red, gray, black } from '../utils/colors';
+import styles from '../components/styles';
 
 class AddDeck extends React.Component{
   constructor(props){
@@ -61,48 +59,4 @@ function mapStateToProps({decks}) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({addDeck}, dispatch)
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(AddDeck);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: black,
-    fontSize: 18,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    marginBottom: 10,
-    justifyContent: 'center',
-  },
-  textInput: {
-    fontSize: 18,
-    color: 'blue',
-    borderColor: '#7a42f4',
-    marginBottom: 10,
-    borderRadius: 7,
-    borderWidth: 1,
-    width: '70%',
-    height: 45,
-    textAlign: 'center'
-  },
-  submit: {
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    borderColor: 'green',
-    borderWidth: 2,
-    borderRadius: 7,
-    width: '30%'
-  },
-  SubmitText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 18
-  }
-});

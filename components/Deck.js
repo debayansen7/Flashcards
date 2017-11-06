@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { loadDeck, loadQuizQuestions } from '../actions/index';
-
-import { white, gray, black, green } from '../utils/colors';
 import { getDeck } from '../utils/api';
 import { clearlocalNotification, setlocalNotification } from '../utils/helper';
+import styles from '../components/styles';
 
 class Deck extends React.Component{
   constructor(props){
@@ -48,8 +46,8 @@ class Deck extends React.Component{
     const {title, count, score} = this.props.selectedDeck;
     return(
       <View style={styles.container}>
-        <Text style={styles.header1}>{title}</Text>
-        <Text style={styles.header2}>{count} - Cards, Score - {score}</Text>
+        <Text style={styles.deckHeader1}>{title}</Text>
+        <Text style={styles.deckHeader2}>{count} - Cards, Score - {score}</Text>
         <TouchableOpacity style={styles.addBtn} onPress={this.toAddCardSection}>
           <Text>Add Card</Text>
         </TouchableOpacity>
@@ -72,46 +70,3 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({loadDeck, loadQuizQuestions},dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Deck);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  header1:{
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  header2:{
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 50,
-  },
-  addBtn:{
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    margin:5,
-    borderColor : green,
-    borderWidth : 2,
-    borderRadius : 7
-  },
-  startQuizBtn:{
-    backgroundColor: white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    margin:5,
-    borderColor : green,
-    borderWidth : 2,
-    borderRadius : 7
-  },
-  text:{
-
-  }
-
-});
